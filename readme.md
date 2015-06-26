@@ -12,7 +12,7 @@ Just register `hapi-joier` and be hapi.
 server.register({
   register: require('hapi-joier'),
   options: {
-    enabled: true
+    enable: true
   }
 })
 ```
@@ -84,7 +84,7 @@ server.route({
   config: {
     plugins: {
       joier: {
-        enabled: true
+        enable: true
       }
     }
   }
@@ -106,7 +106,7 @@ server.route({
   config: {
     plugins: {
       joier: {
-        enabled: true,
+        enable: true,
         map: function(detail){
           return 'Something is wrong with ' + detail.path;
         }
