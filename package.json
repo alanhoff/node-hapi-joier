@@ -1,16 +1,17 @@
 {
   "name": "hapi-joier",
   "version": "1.0.0",
-  "description": "Better 400 error messages for Hapi and Joi",
+  "description": "Better 400 error messages for Hapi responses",
   "main": "index.js",
   "scripts": {
-    "test": "./node_modules/.bin/mocha --bdd --bail tests/**/*-test.js",
-    "travis": "./node_modules/.bin/istanbul cover ./node_modules/.bin/_mocha --report lcovonly -- -R spec tests/**/*-test.js && cat ./coverage/lcov.info | ./node_modules/.bin/coveralls && rm -rf ./coverage"
+    "test": "./node_modules/.bin/mocha --bdd --bail test/**/*-test.js",
+    "travis": "./node_modules/.bin/istanbul cover ./node_modules/.bin/_mocha --report lcovonly -- -R spec test/**/*-test.js && cat ./coverage/lcov.info | ./node_modules/.bin/coveralls && rm -rf ./coverage"
   },
   "author": "Alan Hoffmeister <alanhoffmeister@gmail.com>",
   "license": "ISC",
   "devDependencies": {
     "bluebird": "^2.9.30",
+    "boom": "^2.8.0",
     "chai": "^3.0.0",
     "coveralls": "^2.11.2",
     "hapi": "^8.6.1",

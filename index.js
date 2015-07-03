@@ -1,3 +1,4 @@
+//jshint maxcomplexity: 6
 var mout = require('mout');
 
 exports.register = function(server, options, next) {
@@ -26,7 +27,9 @@ exports.register = function(server, options, next) {
     var response = request.response;
 
     // We need to detect if it's a Boom object and a Joi error
-    if (!response.isBoom || response.data.name !== 'ValidationError')
+    if (!response.isBoom ||
+      !response.data ||
+      response.data.name !== 'ValidationError')
       return reply.continue();
 
     // Merge the default params with the route specific params

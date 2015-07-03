@@ -39,7 +39,7 @@ Now your 400 replies should have better information about the invalid data.
 ```
 
 As you can see, we can now detect which test failed, this is much better to
-display the correct error on the frontend.
+display the correct error message in the frontend.
 
 ### Installation
 
@@ -114,6 +114,17 @@ server.route({
     }
   }
 });
+```
+
+Enable Joier for all routes and intercept every Bomm + Joi response:
+
+```javascript
+server.register({
+  register: require('hapi-joi'),
+  options: {
+    enable: true
+  }
+}, function()...);
 ```
 
 ### License MIT

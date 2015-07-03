@@ -1,9 +1,10 @@
 var Hapi = require('hapi');
 var Joi = require('joi');
+var Boom = require('boom');
 var bluebird = require('bluebird');
 
 module.exports = bluebird.method(function() {
-  var def = bluebird.def();
+  var def = bluebird.defer();
   var server = new Hapi.Server();
   server.connection();
 
@@ -24,14 +25,30 @@ module.exports = bluebird.method(function() {
 
   server.route({
     method: 'POST',
+    path: '/internal',
+    handler: function(request, reply) {
+      reply(new Error('Do not intercept'));
+    }
+  });
+
+  server.route({
+    method: 'POST',
+    path: '/400boom',
+    handler: function(request, reply) {
+      reply(Boom.badRequest('Do not intercept'));
+    }
+  });
+
+  server.route({
+    method: 'POST',
     path: '/valid',
     handler: function(request, reply) {
       reply('Hello world!');
     }
   });
 
-  server.register({
-    register: require('../'),
+  server.register([{
+    register: require('../../'),
     options: {
       enable: true,
       map: function(detail) {
@@ -40,7 +57,7 @@ module.exports = bluebird.method(function() {
     }
   }, {
     register: require('inject-then')
-  }, function(err) {
+  }], function(err) {
     if (err)
       return def.reject(err);
 

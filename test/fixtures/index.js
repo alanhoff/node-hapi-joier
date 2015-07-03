@@ -1,7 +1,7 @@
 var bluebird = require('bluebird');
 
 exports.inject = bluebird.method(function(server, inject) {
-  var def = bluebird.def();
+  var def = bluebird.defer();
 
   require('./server-' + server)().then(function(server) {
     server

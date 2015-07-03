@@ -3,7 +3,7 @@ var Joi = require('joi');
 var bluebird = require('bluebird');
 
 module.exports = bluebird.method(function() {
-  var def = bluebird.def();
+  var def = bluebird.defer();
   var server = new Hapi.Server();
   server.connection();
 
@@ -24,17 +24,37 @@ module.exports = bluebird.method(function() {
 
   server.route({
     method: 'POST',
+    path: '/boom/configured',
+    handler: function(request, reply) {
+      reply('Hello world!');
+    },
+    config: {
+      plugins: {
+        joier: {
+          enable: true
+        }
+      },
+      validate: {
+        payload: {
+          name: Joi.string().min(10).max(40).required()
+        }
+      }
+    }
+  });
+
+  server.route({
+    method: 'POST',
     path: '/valid',
     handler: function(request, reply) {
       reply('Hello world!');
     }
   });
 
-  server.register({
-    register: require('../')
+  server.register([{
+    register: require('../../')
   }, {
     register: require('inject-then')
-  }, function(err) {
+  }], function(err) {
     if (err)
       return def.reject(err);
 
