@@ -1,11 +1,16 @@
 {
   "name": "hapi-joier",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Better 400 error messages for Hapi responses",
   "main": "index.js",
   "scripts": {
+    "changelog": "./node_modules/.bin/conventional-changelog -i changelog.md --overwrite",
     "test": "./node_modules/.bin/mocha --bdd --bail test/**/*-test.js",
     "travis": "./node_modules/.bin/istanbul cover ./node_modules/.bin/_mocha --report lcovonly -- -R spec test/**/*-test.js && cat ./coverage/lcov.info | ./node_modules/.bin/coveralls && rm -rf ./coverage"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/alanhoff/node-hapi-joier"
   },
   "author": "Alan Hoffmeister <alanhoffmeister@gmail.com>",
   "license": "ISC",
@@ -13,6 +18,7 @@
     "bluebird": "^2.9.30",
     "boom": "^2.8.0",
     "chai": "^3.0.0",
+    "conventional-changelog": "^0.2.1",
     "coveralls": "^2.11.2",
     "hapi": "^8.6.1",
     "inject-then": "^2.0.0",

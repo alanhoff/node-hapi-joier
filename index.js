@@ -10,6 +10,8 @@ exports.register = function(server, options, next) {
       if (validation.context && validation.context.value)
         delete validation.context.value;
 
+      // Add the source to the final object
+      validation.source = this.validation.source;
       return validation;
     }
   }, options || {});
@@ -43,7 +45,10 @@ exports.register = function(server, options, next) {
     // Add the entire Joi validation object error to our response but remove
     // context.value as it contains the original and invalid data
     response.output.payload.validation = response.data.details
-      .map(options.map);
+      .map(options.map, {
+        response: response,
+        validation: mout.lang.clone(response.output.payload.validation)
+      });
 
     reply.continue();
   });
